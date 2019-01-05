@@ -3,6 +3,7 @@ import buble from 'rollup-plugin-buble';
 import sass from 'rollup-plugin-sass';
 import { uglify } from 'rollup-plugin-uglify';
 import es3 from 'rollup-plugin-es3';
+import svgi from 'rollup-plugin-svgi';
 
 export default {
 	input: 'index.js',
@@ -12,11 +13,17 @@ export default {
 	},
 	external: [],
 	plugins: [
+		svgi({
+			options: {
+				jsx: 'preact',
+			}
+		}),
 		sass({
 			output: 'dist/bundle.css',
 		}),
 		buble({
-			jsx: 'h'
+			jsx: 'h',
+			objectAssign: 'Object.assign'
 		}),
 		nodeResolve({
 			modules: true,
